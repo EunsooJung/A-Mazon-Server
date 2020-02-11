@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const uuidv1 = require('uuid/v1');
 
-const userScheam = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     //
     name: {
@@ -26,7 +26,7 @@ const userScheam = new mongoose.Schema(
     // User profile
     about: {
       type: String,
-      required: true
+      trim: true
     },
     // salt needs unique string
     salt: String,
@@ -44,7 +44,7 @@ const userScheam = new mongoose.Schema(
 );
 
 // virtual field for clien side after install uuid
-userScheam
+userSchema
   .virtual('password')
   .set(function(password) {
     this._password = password;
@@ -57,7 +57,7 @@ userScheam
   });
 
 // Create userSchema method to apply encryptPassword
-userScheam.methods = {
+userSchema.methods = {
   encryptPassword: function(password) {
     if (!password) return '';
     try {
@@ -71,4 +71,4 @@ userScheam.methods = {
   }
 };
 
-module.exports = mongoose.model('User', userShema);
+module.exports = mongoose.model('User', userSchema);
