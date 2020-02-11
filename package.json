@@ -1,0 +1,32 @@
+{
+  "name": "online-marketplace",
+  "version": "1.0.0",
+  "description": "Creating a marketplace that allows users to view products from Best Buy.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "start-server": "node server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EunsooJung/Online-Marketplace.git"
+  },
+  "keywords": [
+    "React",
+    "Node.js",
+    "MongoDB"
+  ],
+  "author": "Michael Eunsoo Jung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EunsooJung/Online-Marketplace/issues"
+  },
+  "homepage": "https://github.com/EunsooJung/Online-Marketplace#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.11",
+    "nodemon": "^2.0.2"
+  }
+}
