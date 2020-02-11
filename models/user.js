@@ -42,3 +42,33 @@ const userScheam = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// virtual field for clien side after install uuid
+userScheam
+  .virtual('password')
+  .set(function(password) {
+    this._password = password;
+    // salt gives us random string as the hashed password
+    this.salt = uuidv1();
+    this.hashed_password = this.encryptPassword(password);
+  })
+  .get(function() {
+    return this._password;
+  });
+
+// Create userSchema method to apply encryptPassword
+userScheam.methods = {
+  encryptPassword: function(password) {
+    if (!password) return '';
+    try {
+      return crypto
+        .createHmac('sha1', this.salt)
+        .update(password)
+        .digest('hex');
+    } catch (err) {
+      return '';
+    }
+  }
+};
+
+module.exports = mongoose.model('User', userShema);
