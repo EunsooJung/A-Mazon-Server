@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { sendFromCtl } = require('../controllers/userController');
+const { signup } = require('../controllers/userController');
 
-// second parameter is sendFromCtl from userController
-router.get('/', sendFromCtl);
+/**
+ * @method post signup
+ * @parametors signup
+ */
+router.post('/signup', signup);
 
 module.exports = router;
