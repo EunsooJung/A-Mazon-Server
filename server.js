@@ -28,6 +28,7 @@ mongoose.connection.on('err', err => {
 });
 
 // middlewares
+// trace logs like this "GET /api/signup 404 0.602 ms - 149" in terminal
 app.use(morgan('dev'));
 // get json data from request body
 app.use(bodyParser.json());
