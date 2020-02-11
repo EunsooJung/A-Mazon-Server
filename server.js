@@ -1,5 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+// to saving user credentials in th cookie
+const cookieParser = require('cookie-parser');
+
 const dotenv = require('dotenv');
 
 const userRoutes = require('./routes/user');
@@ -8,9 +13,7 @@ const app = express();
 
 dotenv.config();
 
-// express routes middleware
-app.use('/api', userRoutes);
-
+// Connect to Atlas MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -23,6 +26,15 @@ mongoose.connection.on('err', err => {
     `Online Marketplace Atlas MongoDB connection error: ${err.message} `
   );
 });
+
+// middlewares
+app.use(morgan('dev'));
+// get json data from request body
+app.use(bodyParser.json());
+app.use(cookieParser());
+
+// express routes middleware
+app.use('/api', userRoutes);
 
 const port = process.env.PORT || 7001;
 app.listen(port, () => {
