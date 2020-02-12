@@ -58,6 +58,11 @@ userSchema
 
 // Create userSchema method to apply encryptPassword
 userSchema.methods = {
+  // Create authenticate method in user model
+  authenticate: function(plainText) {
+    return this.encryptPassword(plainText) === this.hashed_password;
+  },
+
   encryptPassword: function(password) {
     if (!password) return '';
     try {
