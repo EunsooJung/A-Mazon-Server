@@ -6,7 +6,7 @@ const {
   signin,
   signout,
   requireSignin
-} = require('../controllers/userController');
+} = require('../controllers/userAuthController');
 const { userSignupValidator } = require('../validator');
 
 /**
