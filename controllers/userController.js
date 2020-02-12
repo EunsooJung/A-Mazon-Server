@@ -9,7 +9,7 @@ const User = require('../models/user');
 // To generate signed token
 const jwt = require('jsonwebtoken');
 // For authorization check
-const expressJWT = require('express-jwt');
+const expressJwt = require('express-jwt');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
 /**
@@ -70,3 +70,9 @@ exports.signout = (req, res) => {
   res.clearCookie('t');
   res.json({ message: 'Signout success' });
 };
+
+// User SignIn Middleware with JWT & cookie-parser
+exports.requireSignin = expressJwt({
+  secret: process.env.JWT_SECRET,
+  userProperty: 'auth'
+});

@@ -6,13 +6,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
 
-const dotenv = require('dotenv');
+require('dotenv').config();
 
 const userRoutes = require('./routes/user');
 
 const app = express();
-
-dotenv.config();
 
 // Connect to Atlas MongoDB
 mongoose
