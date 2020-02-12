@@ -36,8 +36,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
 
-// Create helper method to validate user data on signup process
-
 // express routes middleware
 app.use('/api', userRoutes);
 
