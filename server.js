@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 // to saving user credentials in th cookie
 const cookieParser = require('cookie-parser');
+const expressValidator = require('express-validator');
 
 const dotenv = require('dotenv');
 
@@ -33,6 +34,9 @@ app.use(morgan('dev'));
 // get json data from request body
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(expressValidator());
+
+// Create helper method to validate user data on signup process
 
 // express routes middleware
 app.use('/api', userRoutes);
