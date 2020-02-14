@@ -194,6 +194,28 @@ exports.list = (req, res) => {
           error: 'Product not found!'
         });
       }
-      res.send(products);
+      res.json(products);
+    });
+};
+
+/**
+ * Related Products list to the Sidebar menu
+ * - It will find the products based on the req product category
+ *   other products that has the same category, will be returned
+ */
+exports.relatedProductList = (req, res) => {
+  // Create a variable called limit
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+  // $ne (not include = except request product)
+  Product.find({ _id: { $ne: req.product }, category: req.product.category })
+    .limit(limit)
+    .populate('category', '_id name')
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: 'Products not found'
+        });
+      }
+      res.json(products);
     });
 };
