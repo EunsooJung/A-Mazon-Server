@@ -173,8 +173,8 @@ exports.update = (req, res) => {
 
 /**
  * sell and arrival
- * If we want to return the product by sell? sortBy=sold&order=desc&limit=6 it comes from front-end
- * If we want to return the product by based on arrival? sortBy=createdAt&order=desc&limit=6 from front-end
+ * If we want to return the product by sell ?sortBy=sold&order=desc&limit=6 it comes from front-end
+ * If we want to return the product by based on arrival ?sortBy=createdAt&order=desc&limit=6 from front-end
  * If no params are sent, then all products are returned
  * Return the products based on the request queries
  */
