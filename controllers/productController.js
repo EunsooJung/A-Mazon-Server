@@ -103,3 +103,70 @@ exports.remove = (req, res) => {
     });
   });
 };
+
+/** Update Product */
+exports.update = (req, res) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: 'Image could not be updated'
+      });
+    }
+
+    // check for all fiels to update
+    const { name, description, price, category, quantity, shipping } = fields;
+
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: 'All fields are required!'
+      });
+    }
+    /**  */
+    let product = req.product;
+    /**
+     * @method _.extend lodash method it comes from lodash lib
+     * @description
+     * - _.assign(object, [sources]): Assigns own enumerable
+     * string keyed properties of source objects to the destination object.
+     * Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
+     *
+     * Note: This method mutates object and is loosely based on Object.assign.
+     *
+     * _.assignIn(object, [sources])
+     * This method is like _.assign except that it iterates over own and inherited source properties.
+     * Note: This method mutates object.
+     * Aliases: _.extend
+     * Arguments: object (Object): The destination object. / [sources] (...Object): The source objects.
+     * @argument product, fields
+     */
+    product = _.extend(product, fields);
+
+    if (files.photo) {
+      if (files.photo.size > 1000000) {
+        return res.status(400).json({
+          error: 'Image should be less than 1mb in size.'
+        });
+      }
+      product.photo.data = fs.readFileSync(files.photo.path);
+      product.photo.contentType = files.photo.type;
+    }
+
+    product.save((err, result) => {
+      if (err) {
+        res.status(400).json({
+          error: errorHandler(err)
+        });
+      }
+      res.json(result);
+    });
+  });
+};
