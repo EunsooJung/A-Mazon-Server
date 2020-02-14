@@ -6,7 +6,8 @@ const {
   productById,
   read,
   remove,
-  update
+  update,
+  list
 } = require('../controllers/productController');
 const {
   requireSignin,
@@ -25,7 +26,8 @@ router.delete(
   isAdmin,
   remove
 );
-// update
+
+/* update */
 router.put(
   '/product/:productId/:userId',
   requireSignin,
@@ -33,6 +35,7 @@ router.put(
   isAdmin,
   update
 );
+router.get('/products', list);
 
 router.param('userId', userById);
 router.param('productId', productById);

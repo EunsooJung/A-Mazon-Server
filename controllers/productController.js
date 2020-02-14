@@ -170,3 +170,30 @@ exports.update = (req, res) => {
     });
   });
 };
+
+/**
+ * sell and arrival
+ * If we want to return the product by sell? sortBy=sold&order=desc&limit=6 it comes from front-end
+ * If we want to return the product by based on arrival? sortBy=createdAt&order=desc&limit=6 from front-end
+ * If no params are sent, then all products are returned
+ * Return the products based on the request queries
+ */
+exports.list = (req, res) => {
+  let order = req.query.order ? req.query.order : 'asc';
+  let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  Product.find()
+    .select('-photo')
+    .populate('category')
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: 'Product not found!'
+        });
+      }
+      res.send(products);
+    });
+};
