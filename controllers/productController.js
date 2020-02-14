@@ -219,3 +219,15 @@ exports.relatedProductList = (req, res) => {
       res.json(products);
     });
 };
+
+// Get all the categories used in the product more distinct to product
+exports.listCategories = (req, res) => {
+  Product.distinct('category', {}, (err, categories) => {
+    if (err) {
+      return res.status(400).json({
+        error: 'Categories not found'
+      });
+    }
+    res.json(categories);
+  });
+};

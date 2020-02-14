@@ -8,7 +8,8 @@ const {
   remove,
   update,
   list,
-  relatedProductList
+  relatedProductList,
+  listCategories
 } = require('../controllers/productController');
 const {
   requireSignin,
@@ -39,6 +40,7 @@ router.put(
 
 router.get('/products', list);
 router.get('/products/related/:productId', relatedProductList);
+router.get('/products/categories', listCategories);
 
 router.param('userId', userById);
 router.param('productId', productById);
