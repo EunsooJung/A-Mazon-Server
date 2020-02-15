@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
 // to saving user credentials in th cookie
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
@@ -36,6 +38,8 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
+/** cors with our API will be able to handle the request are coming form different origin */
+app.use(cors());
 
 // express routes middleware
 app.use('/api', authUserRoutes);
