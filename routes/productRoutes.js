@@ -11,7 +11,8 @@ const {
   relatedProductList,
   listCategories,
   searchProductsList,
-  sendProductPhoto
+  sendProductPhoto,
+  listSearch
 } = require('../controllers/productController');
 const {
   requireSignin,
@@ -41,6 +42,7 @@ router.put(
 );
 
 router.get('/products', list);
+router.get('/products/search', listSearch);
 router.get('/products/related/:productId', relatedProductList);
 router.get('/products/categories', listCategories);
 // POST router: sending object the filter to product categories and price range... to access request body
