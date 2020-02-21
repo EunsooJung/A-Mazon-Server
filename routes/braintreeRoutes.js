@@ -16,8 +16,13 @@ const {
 
 // GET Braintree Token
 router.get('/braintree/getToken/:userId', requireSignin, isAuth, generateToken);
-// GET Braintree payment process
-router.get('/braintree/payment/:userId', requireSignin, isAuth, processPayment);
+// POST Braintree payment process
+router.post(
+  '/braintree/payment/:userId',
+  requireSignin,
+  isAuth,
+  processPayment
+);
 
 router.param('userId', userById);
 
