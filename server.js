@@ -17,6 +17,8 @@ const productRoutes = require('./routes/productRoutes');
 
 const braintreeRoutes = require('./routes/braintreeRoutes');
 
+const orderRoutes = require('./routes/orderRoutes');
+
 const app = express();
 
 // Connect to Atlas MongoDB
@@ -49,6 +51,7 @@ app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', braintreeRoutes);
+app.use('/api', orderRoutes);
 
 const port = process.env.PORT || 7001;
 app.listen(port, () => {
