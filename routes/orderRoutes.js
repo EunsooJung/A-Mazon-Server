@@ -13,12 +13,14 @@ const {
 } = require('../controllers/userController');
 
 const { createOrder } = require('../controllers/orderController');
+const { decreaseQuantity } = require('../controllers/productController');
 
 router.post(
   '/order/create/:userId',
   requireSignin,
   isAuth,
   addOrderToUserHistory,
+  decreaseQuantity,
   createOrder
 );
 

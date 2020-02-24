@@ -285,7 +285,9 @@ exports.searchProductsList = (req, res) => {
     });
 };
 
-/** Send product photo to front-end */
+/**
+ * Send product photo to front-end
+ */
 exports.sendProductPhoto = (req, res, next) => {
   if (req.product.photo.data) {
     res.set('Content-Type', req.product.photo.contentType);
@@ -315,4 +317,44 @@ exports.listSearch = (req, res) => {
       res.json(products);
     }).select('-photo');
   }
+};
+
+/**
+ * @description When user purchased product, it can decrease product quantity automatically.
+ * @requestedFrom routes/orderRoutes.js - router.post(
+  '/order/create/:userId',
+  requireSignin,
+  isAuth,
+  addOrderToUserHistory,
+  decreaseQuantity,
+  createOrder
+);
+ */
+exports.decreaseQuantity = (req, res, next) => {
+  // item = product item
+  let bulkOps = req.body.order.products.map(item => {
+    return {
+      updateOne: {
+        // filter based on _id
+        filter: { _id: item._id },
+        // update $inc means update include decrease quantity of item and increase sold of item from front-end
+        update: { $inc: { quantity: -item.count, sold: +item.count } }
+      }
+    };
+  });
+  /**
+   * @method bulkWrite From mongoose
+   * @argument bulkOps
+   * @argument {}
+   * @argument callback error, products
+   */
+  Product.bulkWrite(bulkOps, {}, (error, products) => {
+    if (error) {
+      return res.status(400).json({
+        error: 'Could not update product'
+      });
+    }
+    // continue second method of createOrder in orderRoutes.js
+    next();
+  });
 };
