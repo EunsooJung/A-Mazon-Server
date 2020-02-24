@@ -3,8 +3,8 @@
  * @description
  * @usedIn /routes/braintreeRoutes.js
  */
-const braintree = require('braintree');
 const User = require('../models/user');
+const braintree = require('braintree');
 require('dotenv').config();
 
 const gateway = braintree.connect({
@@ -18,7 +18,6 @@ const gateway = braintree.connect({
  * @description To get braintree token
  */
 exports.generateToken = (req, res) => {
-  //
   gateway.clientToken.generate({}, function(err, response) {
     if (err) {
       res.status(500).send(err);
@@ -29,10 +28,9 @@ exports.generateToken = (req, res) => {
 };
 
 exports.processPayment = (req, res) => {
-  // payment method from client and total amount
   let nonceFromTheClient = req.body.paymentMethodNonce;
   let amountFromTheClient = req.body.amount;
-  // charge to user
+  // charge
   let newTransaction = gateway.transaction.sale(
     {
       amount: amountFromTheClient,
@@ -40,7 +38,7 @@ exports.processPayment = (req, res) => {
       options: {
         submitForSettlement: true
       }
-    }, // callback error and result
+    },
     (error, result) => {
       if (error) {
         res.status(500).json(error);
