@@ -31,7 +31,7 @@ router.post(
 
 /**
  * @method GET
- * @requestedFrom
+ * @requestedFrom src/admin/adminApi.js - listOrders = (userId, token) ... Front-End
  */
 router.get('/order/list/:userId', requireSignin, isAuth, isAdmin, listOrders);
 
