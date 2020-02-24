@@ -7,10 +7,20 @@ const express = require('express');
 const router = express.Router();
 
 const { requireSignin, isAuth } = require('../controllers/userAuthController');
-const { userById } = require('../controllers/userController');
+const {
+  userById,
+  addOrderToUserHistory
+} = require('../controllers/userController');
+
 const { createOrder } = require('../controllers/orderController');
 
-router.post('/order/create/:userId', requireSignin, isAuth, createOrder);
+router.post(
+  '/order/create/:userId',
+  requireSignin,
+  isAuth,
+  addOrderToUserHistory,
+  createOrder
+);
 
 router.param('userId', userById);
 
