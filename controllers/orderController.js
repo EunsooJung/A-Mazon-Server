@@ -5,6 +5,26 @@ const { Order, CartItem } = require('../models/order');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
 /**
+ * @description
+ * @arguments req, res, next, id
+ * @requestedBy
+ * @usedIn - @method updateOrderStatus
+ */
+exports.orderById = (req, res, next, id) => {
+  Order.findById(id)
+    .populate('products.product', 'name price')
+    .exec((err, order) => {
+      if (err || !order) {
+        return res.status(400).json({
+          error: errorHandler(err)
+        });
+      }
+      req.order = order;
+      next();
+    });
+};
+
+/**
  * @method createOrder
  */
 exports.createOrder = (req, res) => {
@@ -37,4 +57,29 @@ exports.listOrders = (req, res) => {
       }
       res.json(orders);
     });
+};
+
+/**
+ * @requestedBy src/admin/adminApi.js : front-end
+ */
+exports.getStatusValues = (req, res) => {
+  // from front-end
+  res.json(Order.schema.path('status').enumValues);
+};
+/**
+ * @requestedBy src/admin/adminApi.js - const updateOrderStatus = (userId, token, orderId, status) ... : back-end
+ */
+exports.updateOrderStatus = (req, res) => {
+  Order.update(
+    { _id: req.body.orderId },
+    { $set: { status: req.body.status } },
+    (err, order) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err)
+        });
+      }
+      res.json(order);
+    }
+  );
 };
