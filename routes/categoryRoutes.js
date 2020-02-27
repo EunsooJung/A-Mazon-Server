@@ -18,6 +18,7 @@ const {
 
 const { userById } = require('../controllers/userController');
 
+/** Get CategoryId */
 router.get('/category/:categoryId', read);
 router.post('/category/create/:userId', requireSignin, isAuth, isAdmin, create);
 router.put(
