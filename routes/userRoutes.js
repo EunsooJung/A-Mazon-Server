@@ -10,7 +10,8 @@ const {
 const {
   userById,
   retrieveProfile,
-  updateProfile
+  updateProfile,
+  purchaseHistory
 } = require('../controllers/userController');
 
 router.get('/secret/:userId', requireSignin, isAuth, isAdmin, (req, res) => {
@@ -19,9 +20,13 @@ router.get('/secret/:userId', requireSignin, isAuth, isAdmin, (req, res) => {
   });
 });
 
-/* User profile */
+/* User profile Managment*/
+/** Read user profile */
 router.get('/user/:userId', requireSignin, isAuth, retrieveProfile);
+/** Update user profile */
 router.put('/user/:userId', requireSignin, isAuth, updateProfile);
+/** User purchase history */
+router.get('/orders/by/user/:userId', requireSignin, isAuth, purchaseHistory);
 
 router.param('userId', userById);
 
