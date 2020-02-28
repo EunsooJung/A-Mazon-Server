@@ -1,8 +1,8 @@
-# Online-Marketplace
+# A-Mazon-Server
 
-Build your own Online-Marketplace web applicaion with ReactJS, Node.js and MongoDB with MVC Pattern.
+Build your own A-Mazon-Server applicaion with Node.js, Express and MongoDB with MVC Pattern.
 
-- [Online-Marketplace: Demo on Heroku]()
+- [A-Mazon-Server: Demo](http://167.71.146.22/)
 
 - [Applied to My Reponsive Portfolio](https://eunsoojung.github.io/Responsive-Portfolio/portfolio.html)
 
@@ -13,21 +13,17 @@ See deployment for notes on how to deploy the project on a live system.
 
 ```bash
 # Install packages
-npm i axios, mongoose, if-env, concurrently
+npm i mongoose, if-env, concurrently
 
 # Run
 npm start
 ```
 
-## Preview
-
-[![Online-Marketplace]()]()
-
 ## Usage
 
 ### Basic Usage
 
-To get Online-Marketplace, after downloading, you need to make sure Git Bash terminal open and looking at the correct folder. When you are within the correct location, you may type the following commands to ask her for information:
+To get A-Mazon-Server, after downloading, you need to make sure Git Bash terminal open and looking at the correct folder. When you are within the correct location, you may type the following commands to ask her for information:
 
 - npm start
 
@@ -37,7 +33,7 @@ To get Online-Marketplace, after downloading, you need to make sure Git Bash ter
 
 To use this applicaion, Clone the applicaion to your local git repository or directory:
 
-- In your terminal, git clone https://github.com/EunsooJung/Online-Marketplace.git
+- In your terminal, git clone https://github.com/EunsooJung/A-Mazon-Server.git
 
 To start:
 
@@ -48,11 +44,11 @@ To start:
 
 - Project structure
 
-  [![Online-Marketplace Project Structure]()]
+  [![A-Mazon-Server Project Structure]()]
 
 - Source Code Check point
 
-1. folder "models": It provides sequelize Schema model
+1. folder "models": It provides mongoose Schema model
 
 ```javascript
 const mongoose = require('mongoose');
@@ -136,11 +132,11 @@ userSchema.methods = {
 module.exports = mongoose.model('User', userSchema);
 ```
 
-2. folder "public": It provides images and css files
+2. helpers: It provides dbErroHaler helper modules.
 
 3. routes: Server-Side routes
 
-- Create all of this Shopping Cart web application's routes (maps) using a exppress router.
+- Create all of this A-Mazon-Server application's routes (maps) using a exppress router.
 
 ```javascript
 /*  Get user authentication */
@@ -153,7 +149,7 @@ router.get('/secret/:userId', requireSignin, isAuth, isAdmin, (req, res) => {
 
 4. Controller layer:
 
-- It provide application logic to comunicate with client and ORM.
+- It provide application logic to process application logics with models.
 
 ```javascript
 /**
@@ -175,14 +171,12 @@ exports.userById = (req, res, next, id) => {
 };
 ```
 
-4. app.js:
+4. server.js:
 
    - Setup Online-Marketplace web applicaion's environments (npm package dependencies)
    - Import Register the Routers to access.
 
-5. views: View layer to represent user interface on Client-Side React Framework.
-
-6. validator: It provides helper method to validate user data on signup process,apply to user routes
+5. validator: It provides helper method to validate user data on signup process,apply to user routes
 
 ```javascript
 exports.userSignupValidator = (req, res, next) => {
@@ -216,17 +210,18 @@ exports.userSignupValidator = (req, res, next) => {
 - [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [Node.js](https://nodejs.org/en/)
 - [MVC Patterns](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
-- [React](https://reactjs.org/)
 - [Mogoose](https://mongoosejs.com/docs/)
 - [MongoDB](https://www.mongodb.com/)
 
 ## Authors
 
 - **Michael(Eunsoo)Jung**
+- **Lucas Coffee**
+- **Tai Le**
 
-* [Online-Marketplace: Demo]()
+* [A-Mazon-Server: Demo](http://167.71.146.22/)
 * [My Portfolio](https://eunsoojung.github.io/Responsive-Portfolio/portfolio.html)
-* [Link to Online-Marketplace-Web-Application Github: Server-Side](https://github.com/EunsooJung/Online-Marketplace.git)
+* [Link to A-Mazon-Server Github: Server-Side](https://github.com/EunsooJung/A-Mazon-Server.git)
 * [Link to LinkedIn](www.linkedin.com/in/eun-soo-jung/)
 
 ## License
