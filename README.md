@@ -44,7 +44,7 @@ To start:
 
 - Project structure
 
-  [![A-Mazon-Server Project Structure]()]
+  [![A-Mazon-Server Project Structure](https://github.com/EunsooJung/A-Mazon-Server/blob/master/helpers/images/back-end-projectStructure.png)]
 
 - Source Code Check point
 
